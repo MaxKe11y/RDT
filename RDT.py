@@ -1,7 +1,9 @@
-startcrds = [0,0]
+# Define variables
+startcrds = [0, 0]
 rvrlocs = []
-count=0
+count = 0
 
+# Set direction dictionaries
 directions1 = {
     "N" : 0,
     "E" : 90,
@@ -15,6 +17,7 @@ directions2 = {
     270 : "W",
 }
 
+# Rover movement function - queries command and moves / turns rover as requested
 def mover(rvrstart, rvrmove):
     for cmnd in rvrmove:
         if cmnd == "M":
@@ -36,21 +39,55 @@ def mover(rvrstart, rvrmove):
             if rvrstart[2] == -90:
                 rvrstart[2] = 270
     return rvrstart
+print("##########################################")
+print("####      RDT Mars Rover Project      ####")
+print("##########################################")
+print("####          Instructions:           ####")
+print("####  Enter two numbers with a space  ####")
+print("####  between as coordinates e.g(5 5) ####")
+print("####                                  ####")
+print("####  Enter coordinates and direction ####")
+print("####  for start point e.g(0 1 N)      ####")
+print("####                                  ####")
+print("####  Use L or R to rotate the rover  ####")
+print("####  90 degrees left(L) or right(R)  ####")
+print("####  and use M to move the rover in  ####")
+print("####  the direction it's facing       ####")
+print("####                                  ####")
+print("##########################################")
+# Upper right coordinate input and validation 42
+loop = True
+while loop:
+    endcrds = input("Enter the upper right coordinates: ").split()
+    try:
+        endcrds = [int(item) for item in endcrds]
+        if endcrds[0] >= 0 and endcrds[1] > 0 and len(endcrds) == 2:
+                loop = False
+    except:
+        print("Error please try again")
 
-endcrds=input("Enter the upper right coordinates: ").split()
-endcrds = [int(item) for item in endcrds]
+
+#
 for i in range (0,2):
     count = count+1
-    rvrstart = input("Enter Rover " + str(count) + " start point and heading: ").split()
-    rvrmove = input("Enter Rover " + str(count) + " movement commands: ").upper()
-    rvrstart[2] = directions1[rvrstart[2]]
-    rvrstart = [int(item) for item in rvrstart]
+    loop = True
+    while loop:
 
-    rvrmove = list(rvrmove)
-    rvrloc = mover(rvrstart, rvrmove)
+        rvrstart = input("Enter Rover " + str(count) + " start point and heading: ").split()
+        rvrmove = input("Enter Rover " + str(count) + " movement commands: ").upper()
+        try:
+            rvrstart[2] = directions1[rvrstart[2]]
+            rvrstart = [int(item) for item in rvrstart]
 
-    rvrloc[2] = directions2[rvrloc[2]]
-    rvrlocs.append(rvrloc)
+            rvrmove = list(rvrmove)
+            rvrloc = mover(rvrstart, rvrmove)
+
+            rvrloc[2] = directions2[rvrloc[2]]
+            rvrlocs.append(rvrloc)
+            loop = False
+        except:
+            print("Error please try again")
+
 
 
 print(*rvrlocs[0])
