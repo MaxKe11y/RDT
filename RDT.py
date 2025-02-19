@@ -67,7 +67,7 @@ while loop:
         print("Error please try again")
 
 
-#
+# Rover command input, validation, and processing
 for i in range (0,2):
     count = count+1
     loop = True
@@ -89,7 +89,7 @@ for i in range (0,2):
             print("Error please try again")
 
 
-
+# Output Rover Locations
 print(*rvrlocs[0])
 print(*rvrlocs[1])
 
